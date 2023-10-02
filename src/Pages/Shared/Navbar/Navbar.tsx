@@ -1,7 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../firebase/firebase.config';
+import { setUser } from '../../../Redux/feature/user/userSlice';
 
 const Navbar = () => {
+
+
+  const user = useAppSelector(state=>state?.user)
+
+  const userEmail = user?.user?.email;
+  
+  const dispacth = useAppDispatch();
+
+  const handleLogOut = ()=>{
+    signOut(auth)
+    .then(()=>{
+      dispacth(setUser(null));
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+  }
+
     return (
         
 <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -49,12 +71,17 @@ const Navbar = () => {
         <li>
           <Link to='/allbook' className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">All Book</Link>
         </li>
-        <li>
-          <Link to="/signup" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">SignUp</Link>
-        </li>
-        <li>
-          <Link to="/login" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</Link>
-        </li>
+        {
+          userEmail?<button onClick={handleLogOut}>LogOut</button>: <div className='flex gap-10'>
+          <li>
+            <Link to="/signup" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">SignUp</Link>
+          </li>
+          <li>
+            <Link to="/login" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Login</Link>
+          </li>
+          </div>
+        }
+       
       </ul>
     </div>
   </div>

@@ -1,8 +1,32 @@
 import React from "react";
 import imge from '../../assets/images/book.jpg';
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../Redux/hook";
+import { useAddWishListMutation } from "../../Redux/feature/books/bookApi";
+import Swal from "sweetalert2";
 const Book = ({ book }) => {
     const{_id,Title, Author, Genre, PublicationYear} = book;
+
+    const user = useAppSelector(state=>state.user)
+
+    const userEmail = user?.user?.email;
+    const [addWishList] = useAddWishListMutation();
+
+    const handleWishlist = (id)=>{
+      const options = {
+        id: id,
+        name: book.Title,
+        userEmail: userEmail
+      };
+      addWishList(options)
+      .then(data=>{
+        Swal.fire(
+          'Good job!',
+          'Your Book Added in Wishlist!',
+          'success'
+        )
+      })
+    }
 
   return (
     <div>
@@ -31,6 +55,8 @@ const Book = ({ book }) => {
           </p>
           <Link to={`/bookdetails/${_id}`}><button className="mt-10 bg-blue-500 rounded-xl text-white py-2 w-full">Book Details</button>
    </Link>
+ <button className="mt-10 bg-blue-200 rounded-xl text-gray-900 py-2 w-full" onClick={()=>handleWishlist(_id)}>Add To Wishlist</button>
+
         </div>
       </div>
     </div>

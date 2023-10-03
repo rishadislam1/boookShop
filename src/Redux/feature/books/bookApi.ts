@@ -45,7 +45,38 @@ const productApi = api.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: ['books'],
-    })
+    }),
+    addWishList: builder.mutation({
+      query:(book)=>({
+     
+        url: `/addWishlist`,
+        method: 'POST',
+        body: book
+      }),
+      invalidatesTags: ['wishlist'],
+    }),
+    getWishlist: builder.query({
+      query: () => '/wishlist',
+    }),
+    deletewishlist: builder.mutation({
+      query: (id)=>({
+        url: `/wishlist/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['wishlist'],
+    }),
+    addFinish: builder.mutation({
+      query:(book)=>({
+     
+        url: `/addFinish`,
+        method: 'POST',
+        body: book
+      }),
+      invalidatesTags: ['finish'],
+    }),
+    getFinish: builder.query({
+      query: () => '/finish',
+    }),
   }),
 });
 
@@ -56,5 +87,10 @@ export const {
   usePostCommentMutation,
   useSingleBookQuery,
   useDeleteBookMutation,
-  useUpdateBooksMutation
+  useUpdateBooksMutation,
+  useAddWishListMutation,
+  useGetWishlistQuery,
+  useDeletewishlistMutation,
+  useAddFinishMutation,
+  useGetFinishQuery
 } = productApi;

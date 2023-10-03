@@ -1,7 +1,8 @@
 import React from "react";
 import imge from '../../assets/images/book.jpg';
+import { Link } from "react-router-dom";
 const Book = ({ book }) => {
-    const{Title, Author, Genre, PublicationYear} = book;
+    const{_id,Title, Author, Genre, PublicationYear} = book;
 
   return (
     <div>
@@ -28,7 +29,8 @@ const Book = ({ book }) => {
           <p className="mb-3 font-bold text-gray-700 dark:text-gray-400">
             {PublicationYear}
           </p>
-   
+          <Link to={`/bookdetails/${_id}`}><button className="mt-10 bg-blue-500 rounded-xl text-white py-2 w-full">Book Details</button>
+   </Link>
         </div>
       </div>
     </div>

@@ -6,8 +6,17 @@ const productApi = api.injectEndpoints({
     getBooks: builder.query({
       query: () => '/books',
     }),
-    singleProduct: builder.query({
-      query: (id) => `/product/${id}`,
+    addBooks: builder.mutation({
+      query:(book)=>({
+     
+        url: `/addbook`,
+        method: 'POST',
+        body: book
+      }),
+      invalidatesTags: ['books'],
+    }),
+    singleBook: builder.query({
+      query: (id) => `/book/${id}`,
     }),
     postComment: builder.mutation({
       query: ({ id, data }) => ({
@@ -27,6 +36,7 @@ const productApi = api.injectEndpoints({
 export const {
   useGetCommentQuery,
   useGetBooksQuery,
+  useAddBooksMutation,
   usePostCommentMutation,
-  useSingleProductQuery,
+  useSingleBookQuery,
 } = productApi;

@@ -138,13 +138,15 @@ const BookDetails = () => {
           >
             Delete
           </button><br /><br />
-
-          <button
-            onClick={handleFinish}
-            className="px-10 py-2 text-white bg-green-500 rounded-xl"
-          >
-            Finish Reading
-          </button>
+{
+  useremail?  <button
+  onClick={handleFinish}
+  className="px-10 py-2 text-white bg-green-500 rounded-xl"
+>
+  Finish Reading
+</button>:"You need to login to finish the book"
+}
+        
         </div>
       </div>
       {/* comment */}

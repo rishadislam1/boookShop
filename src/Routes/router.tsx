@@ -12,6 +12,7 @@ import AllBooks from '../Pages/AllBooks/AllBooks';
 import AddNewBook from '../Pages/AddNewBook/AddNewBook';
 import PrivateRoute from './PrivateRoutes';
 import BookDetails from '../Pages/AllBooks/BookDetails';
+import UpdateBooks from '../Pages/AllBooks/UpdateBooks';
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/bookdetails/:id',
                 element: <BookDetails></BookDetails>
+            },
+            {
+                path: '/updatebooks/:id',
+                element: <PrivateRoute><UpdateBooks></UpdateBooks></PrivateRoute>
             }
         ]
     }

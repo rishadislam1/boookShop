@@ -7,10 +7,14 @@ import { setPublicationYear, setSearchItem } from "../../Redux/feature/books/boo
 import { Link } from "react-router-dom";
 
 const AllBooks = () => {
-  const { data } = useGetBooksQuery({
+  const { data } = useGetBooksQuery({},{
     refetchOnMountOrArgChange: true,
-    pollingInterval: 30000,
+    pollingInterval: 3000,
+    refetchOnReconnect: true,
+    refetchOnFocus: true
+    
   });
+
 
   const [search, setSearch] = useState('');
   const dispatch = useAppDispatch();

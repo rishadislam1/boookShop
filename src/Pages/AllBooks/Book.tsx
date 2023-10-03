@@ -55,7 +55,10 @@ const Book = ({ book }) => {
           </p>
           <Link to={`/bookdetails/${_id}`}><button className="mt-10 bg-blue-500 rounded-xl text-white py-2 w-full">Book Details</button>
    </Link>
- <button className="mt-10 bg-blue-200 rounded-xl text-gray-900 py-2 w-full" onClick={()=>handleWishlist(_id)}>Add To Wishlist</button>
+   {
+    userEmail? <button className="mt-10 bg-blue-200 rounded-xl text-gray-900 py-2 w-full" onClick={()=>handleWishlist(_id)}>Add To Wishlist</button>:"please login to make wishlist"
+   }
+
 
         </div>
       </div>
